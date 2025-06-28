@@ -1,0 +1,339 @@
+<%- layout('layouts/boilerplate') %>
+
+<style>
+    .image-upload-container {
+        border: 2px dashed #dee2e6;
+        border-radius: 10px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        background-color: #f8f9fa;
+        cursor: pointer;
+    }
+    
+    .image-upload-container:hover {
+        border-color: #0d6efd;
+        background-color: #e7f3ff;
+    }
+    
+    .image-upload-container.dragover {
+        border-color: #0d6efd;
+        background-color: #e7f3ff;
+        transform: scale(1.02);
+    }
+    
+    .upload-icon {
+        font-size: 3rem;
+        color: #6c757d;
+        margin-bottom: 1rem;
+    }
+    
+    .image-preview {
+        max-width: 100%;
+        max-height: 300px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        margin-top: 1rem;
+    }
+    
+    .file-input-wrapper {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+    }
+    
+    .file-input {
+        position: absolute;
+        left: -9999px;
+    }
+    
+    .upload-btn {
+        background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+        border: none;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+    
+    .upload-btn:hover {
+        background: linear-gradient(135deg, #0b5ed7, #0a58ca);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+    }
+    
+    .remove-image-btn {
+        background: #dc3545;
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        margin-top: 10px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+    }
+    
+    .remove-image-btn:hover {
+        background: #c82333;
+        transform: translateY(-1px);
+    }
+    
+    .form-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        padding: 2rem;
+        margin: 2rem auto;
+        max-width: 800px;
+    }
+    
+    .form-label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 0.5rem;
+    }
+    
+    .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+        border: none;
+        padding: 12px 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #0b5ed7, #0a58ca);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(13, 110, 253, 0.3);
+    }
+</style>
+
+<div class="container py-5">
+    <div class="form-container fade-in">
+        <h1 class="text-center mb-4">
+            <i class="fas fa-edit text-primary me-2"></i>
+            Update Listing
+        </h1>
+        
+        <form action="/listings/<%= data._id %>?_method=PUT" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+            <div class="row g-4">
+                <!-- Title -->
+                <div class="col-12">
+                    <label for="title" class="form-label required-field">
+                        <i class="fas fa-tag me-2"></i>Title
+                    </label>
+                    <input type="text" class="form-control" id="title" name="listing[title]" required
+                           value="<%= data.title %>" placeholder="Enter property title">
+                    <div class="invalid-feedback">
+                        Please provide a title.
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="col-12">
+                    <label for="description" class="form-label required-field">
+                        <i class="fas fa-align-left me-2"></i>Description
+                    </label>
+                    <textarea class="form-control" id="description" name="listing[description]" rows="4" required
+                              placeholder="Describe your property"><%= data.description %></textarea>
+                    <div class="invalid-feedback">
+                        Please provide a description.
+                    </div>
+                </div>
+
+                <!-- Image Upload -->
+                <div class="col-12">
+                    <label class="form-label required-field">
+                        <i class="fas fa-image me-2"></i>Property Image
+                    </label>
+                    
+                    <!-- Current Image Preview -->
+                    <div class="mb-3">
+                        <label class="form-label">Current Image:</label>
+                        <img src="<%= data.image.url %>" class="image-preview" alt="Current Image" style="display: block;">
+                    </div>
+                    
+                    <div class="image-upload-container" id="uploadContainer">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h5 class="mb-3">Upload New Property Image</h5>
+                        <p class="text-muted mb-3">Drag and drop your image here, or click to browse</p>
+                        <div class="file-input-wrapper">
+                            <input type="file" class="file-input" id="imageFile" name="listing[imageFile]" 
+                                   accept="image/*">
+                            <button type="button" class="upload-btn" onclick="document.getElementById('imageFile').click()">
+                                <i class="fas fa-upload me-2"></i>Choose File
+                            </button>
+                        </div>
+                        <div class="mt-3">
+                            <small class="text-muted">Supported formats: JPG, PNG, GIF (Max 5MB)</small>
+                        </div>
+                    </div>
+                    
+                    <!-- New Image Preview -->
+                    <div class="text-center mt-3" id="previewContainer" style="display: none;">
+                        <label class="form-label">New Image Preview:</label>
+                        <img id="imagePreview" class="image-preview" alt="Preview">
+                        <br>
+                        <button type="button" class="remove-image-btn" onclick="removeImage()">
+                            <i class="fas fa-trash me-2"></i>Remove New Image
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Price -->
+                <div class="col-md-6">
+                    <label for="price" class="form-label required-field">
+                        <i class="fas fa-dollar-sign me-2"></i>Price per Night
+                    </label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control" id="price" name="listing[price]" required
+                               min="0" step="0.01" value="<%= data.price %>" placeholder="Enter price">
+                    </div>
+                    <div class="invalid-feedback">
+                        Please provide a valid price.
+                    </div>
+                </div>
+
+                <!-- Location -->
+                <div class="col-md-6">
+                    <label for="location" class="form-label required-field">
+                        <i class="fas fa-map-marker-alt me-2"></i>Location
+                    </label>
+                    <input type="text" class="form-control" id="location" name="listing[location]" required
+                           value="<%= data.location %>" placeholder="Enter city/location">
+                    <div class="invalid-feedback">
+                        Please provide a location.
+                    </div>
+                </div>
+
+                <!-- Country -->
+                <div class="col-12">
+                    <label for="country" class="form-label required-field">
+                        <i class="fas fa-globe me-2"></i>Country
+                    </label>
+                    <input type="text" class="form-control" id="country" name="listing[country]" required
+                           value="<%= data.country %>" placeholder="Enter country">
+                    <div class="invalid-feedback">
+                        Please provide a country.
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="col-12 text-center mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg px-5">
+                        <i class="fas fa-save me-2"></i>Update Listing
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Form validation
+    (function () {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                
+                // Custom validation for image
+                const imageFile = document.getElementById('imageFile').files[0];
+                
+                // Only validate if a new file is being uploaded (optional for edit)
+                if (imageFile && imageFile.size > 5 * 1024 * 1024) {
+                    event.preventDefault();
+                    alert('File size must be less than 5MB.');
+                    return;
+                }
+                
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+
+    // Image upload functionality
+    const uploadContainer = document.getElementById('uploadContainer');
+    const imageFile = document.getElementById('imageFile');
+    const imagePreview = document.getElementById('imagePreview');
+    const previewContainer = document.getElementById('previewContainer');
+
+    // Drag and drop functionality
+    uploadContainer.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadContainer.classList.add('dragover');
+    });
+
+    uploadContainer.addEventListener('dragleave', () => {
+        uploadContainer.classList.remove('dragover');
+    });
+
+    uploadContainer.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadContainer.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            handleFile(files[0]);
+        }
+    });
+
+    // File input change
+    imageFile.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            handleFile(e.target.files[0]);
+        }
+    });
+
+    // Handle file selection
+    function handleFile(file) {
+        // Validate file type
+        if (!file.type.startsWith('image/')) {
+            alert('Please select a valid image file.');
+            return;
+        }
+
+        // Validate file size (5MB limit)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('File size must be less than 5MB.');
+            return;
+        }
+
+        // Create preview
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block';
+            previewContainer.style.display = 'block';
+            uploadContainer.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Remove image
+    function removeImage() {
+        imageFile.value = '';
+        imagePreview.src = '';
+        previewContainer.style.display = 'none';
+        uploadContainer.style.display = 'block';
+    }
+
+    // Click on upload container to trigger file input
+    uploadContainer.addEventListener('click', () => {
+        imageFile.click();
+    });
+</script>

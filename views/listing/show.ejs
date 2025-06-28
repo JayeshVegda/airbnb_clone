@@ -1,0 +1,335 @@
+<%- layout('layouts/boilerplate') %>
+
+<script>
+    // Pass listing data to map
+    window.listingCoordinates = <%- JSON.stringify(data.geometry?.coordinates || [-73.99110, 40.73430]) %>;
+    window.listingTitle = <%- JSON.stringify(data.title) %>;
+    window.listingLocation = <%- JSON.stringify(`${data.location}, ${data.country}`) %>;
+    console.log("📍 Coordinates:", window.listingCoordinates);
+    console.log("🏠 Title:", window.listingTitle);
+    console.log("🌍 Location:", window.listingLocation);
+</script>
+
+
+
+<link href="https://js.radar.com/v4.5.3/radar.css" rel="stylesheet">
+<script src="https://js.radar.com/v4.5.3/radar.min.js"></script>
+<script src="/js/map.js"></script>
+
+
+<% if (!data) { %>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h1 class="text-danger">Listing Not Found</h1>
+                <p class="lead">The listing you're looking for doesn't exist or has been removed.</p>
+                <a href="/listings" class="btn btn-primary">Back to Listings</a>
+            </div>
+        </div>
+    </div>
+<% } else { %>
+
+<style>
+        .hero-image {
+            height: 60vh;
+            object-fit: cover;
+            width: 100%;
+        }
+        .price-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+        }
+        .location-badge {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #0d6efd;
+        }
+        .description-section {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+        .review-card {
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .rating-stars {
+            color: #ffc107;
+            font-size: 1.2rem;
+        }
+        .review-date {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .review-form {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .star-rating {
+            display: inline-block;
+        }
+        .star-rating input {
+            display: none;
+        }
+        .star-rating label {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #ddd;
+            padding: 0 2px;
+        }
+        .star-rating label:before {
+            content: '★';
+        }
+        .star-rating input:checked ~ label {
+            color: #ffc107;
+        }
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #ffc107;
+        }
+        .reviews-section {
+            margin-top: 3rem;
+        }
+        .no-reviews {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 2rem;
+        }
+        .map-container {
+            margin-top: 3rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+        .map-container h3 {
+            color: #333;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        #map {
+            width: 100%;
+            height: 400px;
+            border-radius: 0 0 10px 10px;
+        }
+    </style>
+
+
+    <div class="position-relative">
+        <img src="<%= data.image.url %>" class="hero-image" alt="<%= data.image.filename %>">
+        <div class="price-badge">
+            <i class="fas fa-tag"></i> $<%= data.price %> / night
+        </div>
+        <div class="location-badge">
+            <i class="fas fa-map-marker-alt"></i> <%= data.location %>, <%= data.country %>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <h1 class="mb-4"><%= data.title %></h1>
+                <div class="description-section mb-4">
+                    <h3 class="h5 mb-3">Description</h3>
+                    <p class="lead"><%= data.description %></p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h3 class="h5 mb-4">Quick Info</h3>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span><i class="fas fa-user text-primary"></i> Owner</span>
+                            <span><%= data.owner ? data.owner.username : 'Unknown' %></span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span><i class="fas fa-map-marker-alt text-primary"></i> Location</span>
+                            <span><%= data.location %></span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span><i class="fas fa-globe text-primary"></i> Country</span>
+                            <span><%= data.country %></span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3">
+                            <span><i class="fas fa-tag text-primary"></i> Price</span>
+                            <span>$<%= data.price %> / night</span>
+                        </div>
+                        <hr>
+                        <% if (currentUser && data.owner && currentUser._id.equals(data.owner._id)) { %>
+                            <div class="d-grid gap-2">
+                                <a href="/listings/<%= data._id %>/edit" class="btn btn-warning">
+                                    <i class="fas fa-edit"></i> Edit Listing
+                                </a>
+                                <form action="/listings/<%= data._id %>?_method=DELETE" method="POST" class="d-grid">
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fas fa-trash"></i> Delete Listing
+                                    </button>
+                                </form>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="container">
+        <div class="map-container">
+            <h3 class="px-3 pt-3">
+                <i class="fas fa-map-marker-alt text-primary"></i> 
+                Location
+            </h3>
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <!-- Review Form Section -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <% if (currentUser) { %>
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title mb-4">
+                                <i class="fas fa-star text-warning"></i> Write a Review
+                            </h3>
+                            <form action="/listings/<%= data._id %>/reviews" method="POST">
+                                <div class="mb-3">
+                                    <label for="rating" class="form-label">Rating</label>
+                                    <select class="form-select" id="rating" name="review[rating]" required>
+                                        <option value="">Select rating</option>
+                                        <option value="1">1 Star</option>
+                                        <option value="2">2 Stars</option>
+                                        <option value="3">3 Stars</option>
+                                        <option value="4">4 Stars</option>
+                                        <option value="5">5 Stars</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="comment" class="form-label">Comment</label>
+                                    <textarea class="form-control" id="comment" name="review[comment]" rows="4" placeholder="Share your experience with this listing..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane"></i> Submit Review
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <div class="card shadow-sm">
+                        <div class="card-body text-center">
+                            <h3 class="card-title mb-4">
+                                <i class="fas fa-star text-warning"></i> Write a Review
+                            </h3>
+                            <p class="text-muted">Please <a href="/user/login">login</a> to write a review.</p>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <!-- Display All Reviews Section -->
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h3 class="mb-4">
+                    <i class="fas fa-comments text-primary"></i> 
+                    All Reviews 
+                    <% if (data.reviews && data.reviews.length > 0) { %>
+                        <span class="badge bg-primary ms-2"><%= data.reviews.length %></span>
+                    <% } %>
+                </h3>
+                
+                <% if (data.reviews && data.reviews.length > 0) { %>
+                    <% data.reviews.forEach(review => { %>
+                        <div class="card mb-3 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div class="rating-stars">
+                                        <% for(let i = 1; i <= 5; i++) { %>
+                                            <% if (i <= review.rating) { %>
+                                                <i class="fas fa-star text-warning"></i>
+                                            <% } else { %>
+                                                <i class="far fa-star text-warning"></i>
+                                            <% } %>
+                                        <% } %>
+                                        <span class="ms-2 text-muted"><%= review.rating %>/5</span>
+                                    </div>
+                                    <div class="text-end">
+                                        <small class="text-muted d-block">
+                                            <i class="fas fa-calendar-alt"></i>
+                                            <%= new Date(review.createdAt).toLocaleDateString() %>
+                                        </small>
+                                        <small class="text-muted">
+                                            <i class="fas fa-user"></i>
+                                            <%= review.author ? review.author.username : 'Anonymous' %>
+                                        </small>
+                                    </div>
+                                </div>
+                                <p class="card-text mb-0"><%= review.comment %></p>
+                                
+                                <!-- Delete Review Button - Only show if current user is the review author -->
+                                <% if (currentUser && review.author && currentUser._id.equals(review.author._id)) { %>
+                                    <div class="mt-3">
+                                        <form action="/listings/<%= data._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" style="display: inline;">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                <i class="fas fa-trash"></i> Delete Review
+                                            </button>
+                                        </form>
+                                    </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <div class="text-center py-5">
+                        <i class="fas fa-comment-slash fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No reviews yet</h5>
+                        <p class="text-muted">Be the first to share your experience with this listing!</p>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+<!-- demo data
+{
+    title: "Historic Parisian Apartment",
+    description: "Charming 2-bedroom apartment in the heart of Le Marais, featuring original 18th-century architecture and modern amenities.",
+    image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3",
+    price: 320,
+    location: "Paris",
+    country: "France"
+}, -->
+<% } %>
+
