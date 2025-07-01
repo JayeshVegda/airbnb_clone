@@ -1,0 +1,345 @@
+/* Global Styles */
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-color);
+}
+
+/* Navbar Styles */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+.nav-link {
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--info-color) !important;
+}
+
+/* Card Styles */
+.listing-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    overflow: hidden;
+}
+
+.listing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    border-radius: 8px 8px 0 0;
+    filter: brightness(0.95);
+}
+
+.listing-card:hover .card-img-top {
+    transform: scale(1.05);
+    filter: brightness(1);
+}
+
+/* Add a subtle gradient overlay to images */
+.card-img-top::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0));
+    pointer-events: none;
+}
+
+/* Ensure image container maintains aspect ratio */
+.card-img-container {
+    position: relative;
+    overflow: hidden;
+    padding-top: 66.67%; /* 3:2 aspect ratio */
+}
+
+/* Price and Location Badges */
+.price-tag, .location-badge {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    backdrop-filter: blur(4px);
+    transition: transform 0.3s ease;
+}
+
+.price-tag {
+    top: 8px;
+    right: 8px;
+}
+
+.location-badge {
+    bottom: 8px;
+    left: 8px;
+}
+
+.listing-card:hover .price-tag,
+.listing-card:hover .location-badge {
+    transform: scale(1.05);
+}
+
+/* Form Styles */
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.required-field::after {
+    content: " *";
+    color: var(--danger-color);
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Preview Image */
+.preview-image {
+    max-width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Hero Image */
+.hero-image {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    filter: brightness(0.9);
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Footer Styles */
+footer {
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+}
+
+footer a {
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--info-color) !important;
+}
+
+.social-icons a {
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: translateY(-3px);
+}
+
+/* Button Styles */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Flash Messages */
+.alert {
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Show Page Styles */
+.description-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.description-section h3 {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.description-section .lead {
+    color: #555;
+    line-height: 1.8;
+}
+
+/* Quick Info Card Styles */
+.quick-info-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.quick-info-card:hover {
+    transform: translateY(-5px);
+}
+
+.quick-info-card .card-body {
+    padding: 1.5rem;
+}
+
+.quick-info-card h3 {
+    color: var(--primary-color);
+    font-weight: 600;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+.quick-info-card .d-flex {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.quick-info-card .d-flex:last-child {
+    border-bottom: none;
+}
+
+.quick-info-card i {
+    width: 24px;
+    text-align: center;
+}
+
+/* Action Buttons */
+.action-buttons {
+    margin-top: 1.5rem;
+}
+
+.action-buttons .btn {
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.action-buttons .btn-warning {
+    background-color: var(--warning-color);
+    border-color: var(--warning-color);
+    color: #000;
+}
+
+.action-buttons .btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+    transform: translateY(-2px);
+}
+
+.action-buttons .btn-danger {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+.action-buttons .btn-danger:hover {
+    background-color: #bb2d3b;
+    border-color: #b02a37;
+    transform: translateY(-2px);
+}
+
+/* Price and Location Badges for Show Page */
+.show-page .price-tag,
+.show-page .location-badge {
+    font-size: 1rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    backdrop-filter: blur(8px);
+}
+
+.show-page .price-tag {
+    top: 20px;
+    right: 20px;
+}
+
+.show-page .location-badge {
+    bottom: 20px;
+    left: 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero-image {
+        height: 200px;
+        border-radius: 0 0 12px 12px;
+    }
+
+    .description-section {
+        padding: 1.5rem;
+    }
+
+    .show-page .price-tag,
+    .show-page .location-badge {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
