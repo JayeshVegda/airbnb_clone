@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 const { sampleListings } = require("./data.js");
 const Listing = require("../models/listingModel.js");
+if(process.env.NODE_ENV != "production"){
+    require('dotenv').config()
+}
+const mongoDBUrl = process.env.MONGO_URL
+
 
 // cleaning before data
 const initDB = async() => {
@@ -15,9 +20,9 @@ const initDB = async() => {
 }
 
 // mongo db connection and listing 
-async function startServer() {
+async function startServer(mongoDBUrl) {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/airbnb');
+        await mongoose.connect(mongoDBUrl);
         console.log("MongoDB connection successful");
         await initDB();
     } catch (err) {

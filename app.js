@@ -16,6 +16,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const multer = require("multer");
 const { storage } = require("./cloudConfig.js");
+const MongoStore = require('connect-mongo');
 
 
 // // Import models
@@ -28,7 +29,7 @@ const userRouter = require("./routes/user.js");
 
 // Configuration variables
 const port = 8484;
-const mongoDBUrl = "mongodb://127.0.0.1:27017/airbnb";
+const mongoDBUrl = process.env.MONGO_URL
 
 
 
@@ -36,8 +37,18 @@ const mongoDBUrl = "mongodb://127.0.0.1:27017/airbnb";
 // Multer configuration
 const upload = multer({ storage });
 
+// Mongo Store Connection
+const store = MongoStore.create({
+    mongoUrl: mongoDBUrl,
+    crypto : {
+        secret: "MySuperSecretKey",
+    },
+    touchAfter: 24*3600
+})
+
 // Session configuration
 const sessionOptions = {
+    store,
     secret: "MySuperSecretKey",
     resave: false,
     saveUninitialized: true,
@@ -47,6 +58,12 @@ const sessionOptions = {
         httpOnly: true,
     },
 };
+
+
+store.on("error", () => {
+    console.log("Error in mongo store", err);
+})
+
 
 // Express application setup
 app.set("view engine", "ejs");
