@@ -1,10 +1,8 @@
 const mongoose = require("mongoose");
 const { sampleListings } = require("./data.js");
 const Listing = require("../models/listingModel.js");
-if(process.env.NODE_ENV != "production"){
-    require('dotenv').config()
-}
-const mongoDBUrl = process.env.MONGO_URL
+
+const mongoDBUrl = "mongodb+srv://admin:admin@cluster0.44c66rd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 
 // cleaning before data
@@ -20,7 +18,7 @@ const initDB = async() => {
 }
 
 // mongo db connection and listing 
-async function startServer(mongoDBUrl) {
+async function startServer() {
     try {
         await mongoose.connect(mongoDBUrl);
         console.log("MongoDB connection successful");

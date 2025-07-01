@@ -9,7 +9,11 @@ const sampleListings = [
         price: 850,
         location: "Miami Beach",
         country: "United States",
-        owner: "685d334dcd76906ed76ce840"
+        owner: "685d334dcd76906ed76ce840",
+        geometry: {
+            type: "Point",
+            coordinates: [-80.1300455, 25.790654] // Miami Beach
+        }
     },
     {
         title: "Historic Parisian Apartment",
@@ -21,7 +25,11 @@ const sampleListings = [
         price: 320,
         location: "Paris",
         country: "France",
-        owner: "685d3340cd76906ed76ce838"
+        owner: "685d3340cd76906ed76ce838",
+        geometry: {
+            type: "Point",
+            coordinates: [2.352222, 48.856613] // Paris
+        }
     },
     {
         title: "Mountain View Chalet",
@@ -33,7 +41,11 @@ const sampleListings = [
         price: 450,
         location: "Zermatt",
         country: "Switzerland",
-        owner: "685d332fcd76906ed76ce830"
+        owner: "685d332fcd76906ed76ce830",
+        geometry: {
+            type: "Point",
+            coordinates: [7.749117, 46.020713] // Zermatt
+        }
     },
     {
         title: "Traditional Japanese Ryokan",
@@ -45,7 +57,11 @@ const sampleListings = [
         price: 380,
         location: "Kyoto",
         country: "Japan",
-        owner: "685d3320cd76906ed76ce828"
+        owner: "685d3320cd76906ed76ce828",
+        geometry: {
+            type: "Point",
+            coordinates: [135.7681, 35.0116] // Kyoto
+        }
     },
     {
         title: "Santorini Cave House",
@@ -57,7 +73,11 @@ const sampleListings = [
         price: 550,
         location: "Oia",
         country: "Greece",
-        owner: "685d334dcd76906ed76ce840"
+        owner: "685d334dcd76906ed76ce840",
+        geometry: {
+            type: "Point",
+            coordinates: [25.3753, 36.4613] // Oia, Santorini
+        }
     },
     {
         title: "Modern Downtown Loft",
@@ -69,7 +89,11 @@ const sampleListings = [
         price: 280,
         location: "New York",
         country: "United States",
-        owner: "685d3340cd76906ed76ce838"
+        owner: "685d3340cd76906ed76ce838",
+        geometry: {
+            type: "Point",
+            coordinates: [-74.005974, 40.712776] // New York
+        }
     },
     {
         title: "Tropical Treehouse",
@@ -81,7 +105,11 @@ const sampleListings = [
         price: 175,
         location: "Monteverde",
         country: "Costa Rica",
-        owner: "685d332fcd76906ed76ce830"
+        owner: "685d332fcd76906ed76ce830",
+        geometry: {
+            type: "Point",
+            coordinates: [-84.8251, 10.3005] // Monteverde
+        }
     },
     {
         title: "Venetian Canal Apartment",
@@ -93,7 +121,11 @@ const sampleListings = [
         price: 420,
         location: "Venice",
         country: "Italy",
-        owner: "685d3320cd76906ed76ce828"
+        owner: "685d3320cd76906ed76ce828",
+        geometry: {
+            type: "Point",
+            coordinates: [12.3155, 45.4408] // Venice
+        }
     },
     {
         title: "Desert Oasis Villa",
@@ -105,7 +137,11 @@ const sampleListings = [
         price: 380,
         location: "Marrakech",
         country: "Morocco",
-        owner: "685d334dcd76906ed76ce840"
+        owner: "685d334dcd76906ed76ce840",
+        geometry: {
+            type: "Point",
+            coordinates: [-7.9811, 31.6295] // Marrakech
+        }
     },
     {
         title: "Sydney Harbor Penthouse",
@@ -117,7 +153,11 @@ const sampleListings = [
         price: 650,
         location: "Sydney",
         country: "Australia",
-        owner: "685d3340cd76906ed76ce838"
+        owner: "685d3340cd76906ed76ce838",
+        geometry: {
+            type: "Point",
+            coordinates: [151.2093, -33.8688] // Sydney
+        }
     },
     {
         title: "Bali Jungle Villa",
@@ -129,7 +169,11 @@ const sampleListings = [
         price: 290,
         location: "Ubud",
         country: "Indonesia",
-        owner: "685d332fcd76906ed76ce830"
+        owner: "685d332fcd76906ed76ce830",
+        geometry: {
+            type: "Point",
+            coordinates: [115.2625, -8.5069] // Ubud, Bali
+        }
     },
     {
         title: "Amsterdam Canal House",
@@ -141,7 +185,11 @@ const sampleListings = [
         price: 350,
         location: "Amsterdam",
         country: "Netherlands",
-        owner: "685d3320cd76906ed76ce828"
+        owner: "685d3320cd76906ed76ce828",
+        geometry: {
+            type: "Point",
+            coordinates: [4.9041, 52.3676] // Amsterdam
+        }
     },
     {
         title: "Dubai Marina Apartment",
@@ -153,7 +201,11 @@ const sampleListings = [
         price: 480,
         location: "Dubai",
         country: "UAE",
-        owner: "685d334dcd76906ed76ce840"
+        owner: "685d334dcd76906ed76ce840",
+        geometry: {
+            type: "Point",
+            coordinates: [55.1413, 25.0800] // Dubai Marina
+        }
     },
     {
         title: "Cape Town Beach House",
@@ -165,7 +217,11 @@ const sampleListings = [
         price: 420,
         location: "Cape Town",
         country: "South Africa",
-        owner: "685d3340cd76906ed76ce838"
+        owner: "685d3340cd76906ed76ce838",
+        geometry: {
+            type: "Point",
+            coordinates: [18.4241, -33.9249] // Cape Town
+        }
     },
     {
         title: "Barcelona Gothic Quarter Loft",
@@ -177,7 +233,11 @@ const sampleListings = [
         price: 280,
         location: "Barcelona",
         country: "Spain",
-        owner: "685d332fcd76906ed76ce830"
+        owner: "685d332fcd76906ed76ce830",
+        geometry: {
+            type: "Point",
+            coordinates: [2.1734, 41.3851] // Barcelona
+        }
     },
     {
         title: "Kyoto Machiya House",
@@ -189,7 +249,11 @@ const sampleListings = [
         price: 320,
         location: "Kyoto",
         country: "Japan",
-        owner: "685d3320cd76906ed76ce828"
+        owner: "685d3320cd76906ed76ce828",
+        geometry: {
+            type: "Point",
+            coordinates: [135.7681, 35.0116] // Kyoto
+        }
     },
     {
         title: "Rio de Janeiro Beachfront",
@@ -201,7 +265,11 @@ const sampleListings = [
         price: 380,
         location: "Rio de Janeiro",
         country: "Brazil",
-        owner: "685d334dcd76906ed76ce840"
+        owner: "685d334dcd76906ed76ce840",
+        geometry: {
+            type: "Point",
+            coordinates: [-43.1729, -22.9068] // Rio de Janeiro
+        }
     },
     {
         title: "Vienna Art Nouveau Apartment",
@@ -213,7 +281,11 @@ const sampleListings = [
         price: 290,
         location: "Vienna",
         country: "Austria",
-        owner: "685d3340cd76906ed76ce838"
+        owner: "685d3340cd76906ed76ce838",
+        geometry: {
+            type: "Point",
+            coordinates: [16.3738, 48.2082] // Vienna
+        }
     },
     {
         title: "Bangkok Riverside Villa",
@@ -225,7 +297,11 @@ const sampleListings = [
         price: 350,
         location: "Bangkok",
         country: "Thailand",
-        owner: "685d332fcd76906ed76ce830"
+        owner: "685d332fcd76906ed76ce830",
+        geometry: {
+            type: "Point",
+            coordinates: [100.5018, 13.7563] // Bangkok
+        }
     },
     {
         title: "Stockholm Archipelago House",
@@ -237,7 +313,11 @@ const sampleListings = [
         price: 420,
         location: "Stockholm",
         country: "Sweden",
-        owner: "685d3320cd76906ed76ce828"
+        owner: "685d3320cd76906ed76ce828",
+        geometry: {
+            type: "Point",
+            coordinates: [-84.8251, 10.3005] // Monteverde
+        }
     },
     {
         title: "Lisbon Alfama Apartment",
@@ -249,7 +329,11 @@ const sampleListings = [
         price: 220,
         location: "Lisbon",
         country: "Portugal",
-        owner: "685d334dcd76906ed76ce840"
+        owner: "685d334dcd76906ed76ce840",
+        geometry: {
+            type: "Point",
+            coordinates: [-84.8251, 10.3005] // Monteverde
+        }
     },
     {
         title: "Havana Colonial House",
@@ -261,7 +345,11 @@ const sampleListings = [
         price: 180,
         location: "Havana",
         country: "Cuba",
-        owner: "685d3340cd76906ed76ce838"
+        owner: "685d3340cd76906ed76ce838",
+        geometry: {
+            type: "Point",
+            coordinates: [-84.8251, 10.3005] // Monteverde
+        }
     },
     {
         title: "Seoul Hanok House",
@@ -273,7 +361,11 @@ const sampleListings = [
         price: 250,
         location: "Seoul",
         country: "South Korea",
-        owner: "685d332fcd76906ed76ce830"
+        owner: "685d332fcd76906ed76ce830",
+        geometry: {
+            type: "Point",
+            coordinates: [-84.8251, 10.3005] // Monteverde
+        }
     },
     {
         title: "Istanbul Bosphorus Villa",
@@ -285,7 +377,11 @@ const sampleListings = [
         price: 450,
         location: "Istanbul",
         country: "Turkey",
-        owner: "685d3320cd76906ed76ce828"
+        owner: "685d3320cd76906ed76ce828",
+        geometry: {
+            type: "Point",
+            coordinates: [-84.8251, 10.3005] // Monteverde
+        }
     },
     {
         title: "Helsinki Design Apartment",
@@ -297,7 +393,11 @@ const sampleListings = [
         price: 280,
         location: "Helsinki",
         country: "Finland",
-        owner: "685d334dcd76906ed76ce840"
+        owner: "685d334dcd76906ed76ce840",
+        geometry: {
+            type: "Point",
+            coordinates: [-84.8251, 10.3005] // Monteverde
+        }
     },
     {
         title: "Mexico City Art Deco Loft",
@@ -309,7 +409,11 @@ const sampleListings = [
         price: 220,
         location: "Mexico City",
         country: "Mexico",
-        owner: "685d3340cd76906ed76ce838"
+        owner: "685d3340cd76906ed76ce838",
+        geometry: {
+            type: "Point",
+            coordinates: [-84.8251, 10.3005] // Monteverde
+        }
     },
     {
         title: "Singapore Marina Bay Suite",
@@ -321,7 +425,11 @@ const sampleListings = [
         price: 580,
         location: "Singapore",
         country: "Singapore",
-        owner: "685d332fcd76906ed76ce830"
+        owner: "685d332fcd76906ed76ce830",
+        geometry: {
+            type: "Point",
+            coordinates: [-84.8251, 10.3005] // Monteverde
+        }
     },
     {
         title: "Budapest Thermal Bath Apartment",
@@ -333,7 +441,11 @@ const sampleListings = [
         price: 190,
         location: "Budapest",
         country: "Hungary",
-        owner: "685d3320cd76906ed76ce828"
+        owner: "685d3320cd76906ed76ce828",
+        geometry: {
+            type: "Point",
+            coordinates: [-84.8251, 10.3005] // Monteverde
+        }
     },
     {
         title: "Cairo Nile View Apartment",
@@ -345,7 +457,11 @@ const sampleListings = [
         price: 250,
         location: "Cairo",
         country: "Egypt",
-        owner: "685d334dcd76906ed76ce840"
+        owner: "685d334dcd76906ed76ce840",
+        geometry: {
+            type: "Point",
+            coordinates: [-84.8251, 10.3005] // Monteverde
+        }
     },
     {
         title: "Mumbai Heritage Bungalow",
@@ -357,7 +473,11 @@ const sampleListings = [
         price: 320,
         location: "Mumbai",
         country: "India",
-        owner: "685d3340cd76906ed76ce838"
+        owner: "685d3340cd76906ed76ce838",
+        geometry: {
+            type: "Point",
+            coordinates: [-84.8251, 10.3005] // Monteverde
+        }
     }
 ];
 
